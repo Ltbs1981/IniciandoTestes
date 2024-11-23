@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IniciandoTestes.Contratos
+﻿namespace IniciandoTestes.Entidades
 {
-    internal class Funcionario
+    public class Funcionario
     {
+        public string Nome { get; set; }
+        public DateTime Nascimento { get; set; }
+        public double Salario { get; set; }
+
+        public Senioridade Senioridade { get; set; }
+
     }
 }

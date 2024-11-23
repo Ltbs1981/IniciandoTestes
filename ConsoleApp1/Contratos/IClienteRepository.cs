@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IniciandoTestes.Entidades;
 
 namespace IniciandoTestes.Contratos
 {
-    internal interface IClienteRepository
+    public interface IClienteRepository
     {
+        Cliente GetCliente(Guid id);
+        Cliente GetCliente (string nome);
+        List<Cliente> GetAll();
+        void AddCliente(Cliente cliente);
+
     }
 }

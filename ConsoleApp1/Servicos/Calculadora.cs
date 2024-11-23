@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IniciandoTestes.Servicos
+﻿namespace IniciandoTestes.Servicos
 {
-    internal class Calculadora
+    using System;
+    public class Calculadora
     {
+        public double SomarNumeros(double n1, double n2)
+        {
+            if (n1 < 0 || n2 < 0)
+            {
+                return -1;
+            }
+
+            return n1 + n2;
+        }
     }
 }
