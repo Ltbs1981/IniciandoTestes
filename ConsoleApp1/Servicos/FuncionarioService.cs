@@ -6,11 +6,10 @@ namespace IniciandoTestes.Servicos
     {
         public void AdicionarFuncionario(Funcionario funcionario)
         {
-            if (funcionario == null)
+            if (string.IsNullOrEmpty(funcionario.Nome))
             {
-                throw new Exception("Funcionario não pode ser nulo");
+                throw new Exception("Nome do funcionário não pode ser nulo ou vazio.");
             }
-
             if (funcionario.Nome.Length < 3)
             {
                 throw new FormatException("Formato incorreto de nome.");

@@ -31,9 +31,9 @@ namespace IniciandoTestes.Servicos
             _clienteRepository.AddCliente(cliente);
         }
 
-        public string ExemploString()
-        {
-            return "Retorna a string";
-        }
+    //    public string ExemploString()
+    //    {
+    //        return "Retorna a string";
+    //    }
     }
 }

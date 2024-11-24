@@ -17,7 +17,7 @@ namespace IniciandoTestes.Tests
             _faker = new Faker();
         }
 
-//teste de sucesso com dados ok
+        //teste de sucesso com dados ok
 
         [Theory]
         [MemberData(nameof(GetFuncionariosValidos))]
@@ -28,17 +28,6 @@ namespace IniciandoTestes.Tests
 
             // Act & Assert
             sut.AdicionarFuncionario(funcionario);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetFuncionariosInvalidos))]
-        public void AdicionarFuncionario_DeveLancarExcecao_QuandoDadosInvalidos(Funcionario funcionario, Type excecaoEsperada)
-        {
-            // Arrange
-            var sut = new FuncionarioService();
-
-            // Act & Assert
-            Assert.Throws(excecaoEsperada, () => sut.AdicionarFuncionario(funcionario));
         }
 
         public static IEnumerable<object[]> GetFuncionariosValidos()
@@ -80,24 +69,23 @@ namespace IniciandoTestes.Tests
             };
         }
 
+        //lançando excepitions
+        [Theory]
+        [MemberData(nameof(GetFuncionariosInvalidos))]
+        public void AdicionarFuncionario_DeveLancarExcecao_QuandoDadosInvalidos(Funcionario funcionario, Type excecaoEsperada)
+        {
+            // Arrange
+            var sut = new FuncionarioService();
+
+            // Act & Assert
+            Assert.Throws(excecaoEsperada, () => sut.AdicionarFuncionario(funcionario));
+        }
+
         public static IEnumerable<object[]> GetFuncionariosInvalidos()
         {
             var faker = new Faker();
 
-            // nome nulo
-            yield return new object[]
-            {
-        new Funcionario
-        {
-            Nome = null, 
-            Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
-            Senioridade = Senioridade.Junior,
-            Salario = 4000
-        },
-        typeof(ThrowsException ) 
-            };
-
-            // Nome inválido (curto)
+                        // Nome inválido (curto)
             yield return new object[]
             {
         new Funcionario
@@ -110,13 +98,26 @@ namespace IniciandoTestes.Tests
         typeof(FormatException)
             };
 
-            // Idade inválida
+            // nome nulo
             yield return new object[]
             {
+    new Funcionario
+    {
+        Nome = null, // Nome nulo
+        Nascimento = faker.Date.Between(DateTime.Now.AddYears(-50), DateTime.Now.AddYears(-21)),
+        Senioridade = Senioridade.Junior,
+        Salario = 4000
+    },
+    typeof(Exception) // Exceção esperada
+            };
+
+            // Idade inválida
+            yield return new object[]
+           {
         new Funcionario
         {
             Nome = faker.Name.FullName(),
-            Nascimento = faker.Date.Past(60, DateTime.Now.AddYears(-60)), // Idade muito alta
+            Nascimento = faker.Date.Past(60, DateTime.Now.AddYears(-60)),
             Senioridade = Senioridade.Pleno,
             Salario = 6000
         },
@@ -146,7 +147,7 @@ namespace IniciandoTestes.Tests
         },
         typeof(Exception)
 };
-            
+
             yield return new object[]
             {
             new Funcionario

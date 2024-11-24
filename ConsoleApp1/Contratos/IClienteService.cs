@@ -9,6 +9,6 @@ namespace IniciandoTestes.Contratos
     {
         void AddClliente(Cliente cliente);
 
-        string ExemploString();
+        //string ExemploString();
     }
 }

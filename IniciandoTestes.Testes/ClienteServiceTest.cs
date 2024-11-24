@@ -36,18 +36,18 @@ namespace IniciandoTestes.Tests
 
         }
 
-        [Fact]
-        public void TesteEx()
-        {
-            Mock<IClienteRepository> mock = new Mock<IClienteRepository>();
-            ClienteService clienteService = new ClienteService(mock.Object);
+        //[Fact]
+        //public void TesteEx()
+        //{
+        //    Mock<IClienteRepository> mock = new Mock<IClienteRepository>();
+        //    ClienteService clienteService = new ClienteService(mock.Object);
 
-            var result = clienteService.ExemploString();
-            var resultadoEsperado = "Retorno da string";
-            Assert.NotNull(result);
-            Assert.Equal(resultadoEsperado, result);
+        //    var result = clienteService.ExemploString();
+        //    var resultadoEsperado = "Retorno da string";
+        //    Assert.NotNull(result);
+        //    Assert.Equal(resultadoEsperado, result);
 
-        }
+        //}
 
         [Fact]
         public void AddCliente_DeveQuebrar_QuandoClienteJaExiste()
