@@ -69,5 +69,34 @@ namespace IniciandoTestes.Tests
             //Act - Assert   // x => x.  -- () => 
             Assert.Throws<Exception>(() => sut.AddClliente(cliente));
         }
+        [Fact]
+        public void AddCliente_DeveLancarExcecao_QuandoClienteNulo()
+        {
+            // Arrange
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
+            var sut = new ClienteService(clienteRepositoryMock.Object);
+
+            // Act - Assert
+            Assert.Throws<ArgumentNullException>(() => sut.AddClliente(null));
+        }
+        //[Fact]
+        //public void AddCliente_DeveLancarExcecao_QuandoClienteSemNome()
+        //{
+        //    // Arrange
+        //    var clienteRepositoryMock = new Mock<IClienteRepository>();
+        //    clienteRepositoryMock.Setup(x => x.GetCliente(It.IsAny<Guid>())).Returns((Cliente)null);
+
+        //    var sut = new ClienteService(clienteRepositoryMock.Object);
+
+        //    var cliente = new Cliente()
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        Nome = null, // Nome nulo
+        //        Nascimento = new DateTime(1980, 12, 12)
+        //    };
+
+        //    // Act - Assert
+        //    Assert.Throws<ArgumentNullException>(() => sut.AddClliente(cliente));
+        //}
     }
 }

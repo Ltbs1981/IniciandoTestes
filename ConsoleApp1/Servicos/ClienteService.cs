@@ -16,6 +16,11 @@ namespace IniciandoTestes.Servicos
 
         public void AddClliente(Cliente cliente)
         {
+            if (cliente == null)
+            {
+                throw new ArgumentNullException(nameof(cliente), "O cliente não pode ser nulo.");
+            }
+
             if (DateTime.Now.AddYears(-18) < cliente.Nascimento)
             {
                 throw new Exception("Cliente de menor");
