@@ -84,32 +84,44 @@ namespace IniciandoTestes.Tests
         {
             var faker = new Faker();
 
-            // Nome inválido
+            // nome nulo
             yield return new object[]
             {
-            new Funcionario
-            {
-                Nome = "Jo",
-                Nascimento = faker.Date.Between(DateTime.Now.AddDays(-21), DateTime.Now.AddDays(-50)),
-                Senioridade = Senioridade.Junior,
-                Salario = 4000
-            },
-            typeof(FormatException)
+        new Funcionario
+        {
+            Nome = null, 
+            Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
+            Senioridade = Senioridade.Junior,
+            Salario = 4000
+        },
+        typeof(ThrowsException ) 
             };
 
-            // Idade fora do permitido
+            // Nome inválido (curto)
             yield return new object[]
             {
-            new Funcionario
-            {
-                Nome = faker.Name.FullName(),
-                                Nascimento = faker.Date.Past(60, DateTime.Now.AddYears(-60)), // Idade inválida
-                Senioridade = Senioridade.Pleno,
-                Salario = 6000
-            },
-            typeof(Exception)
+        new Funcionario
+        {
+            Nome = "Jo",
+            Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
+            Senioridade = Senioridade.Junior,
+            Salario = 4000
+        },
+        typeof(FormatException)
             };
 
+            // Idade inválida
+            yield return new object[]
+            {
+        new Funcionario
+        {
+            Nome = faker.Name.FullName(),
+            Nascimento = faker.Date.Past(60, DateTime.Now.AddYears(-60)), // Idade muito alta
+            Senioridade = Senioridade.Pleno,
+            Salario = 6000
+        },
+        typeof(Exception)
+            };
             // Salário fora do intervalo para cada senioridade
             yield return new object[]
             {
@@ -124,6 +136,18 @@ namespace IniciandoTestes.Tests
             };
 
             yield return new object[]
+{
+        new Funcionario
+        {
+            Nome = faker.Name.FullName(),
+            Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
+            Senioridade = Senioridade.Junior,
+            Salario = faker.Random.Double(5501, 10000) // Acima do limite
+        },
+        typeof(Exception)
+};
+            
+            yield return new object[]
             {
             new Funcionario
             {
@@ -134,6 +158,18 @@ namespace IniciandoTestes.Tests
             },
             typeof(Exception)
             };
+
+            yield return new object[]
+{
+        new Funcionario
+        {
+            Nome = faker.Name.FullName(),
+            Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
+            Senioridade = Senioridade.Pleno,
+            Salario = faker.Random.Double(8001, 15000) // Acima do limite
+        },
+        typeof(Exception)
+};
 
             yield return new object[]
             {
