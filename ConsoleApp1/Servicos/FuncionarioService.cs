@@ -37,7 +37,7 @@ namespace IniciandoTestes.Servicos
 
                 case Senioridade.Senior:
                     {
-                        if (funcionario.Salario < 8000)
+                        if (funcionario.Salario < 8000 || funcionario.Salario > 20000)
                             throw new Exception("Salario imcompativel com o cargo");
                         break;
                     }

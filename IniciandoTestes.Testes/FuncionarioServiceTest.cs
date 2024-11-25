@@ -183,6 +183,18 @@ namespace IniciandoTestes.Tests
             },
             typeof(Exception)
             };
+
+            yield return new object[]
+{
+        new Funcionario
+        {
+            Nome = faker.Name.FullName(),
+            Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
+            Senioridade = Senioridade.Senior,
+            Salario = faker.Random.Double(20001, 30000) // Acima do limite
+        },
+        typeof(Exception)
+};
         }
     }
 }
