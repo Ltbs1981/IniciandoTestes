@@ -111,6 +111,19 @@ namespace IniciandoTestes.Tests
     typeof(Exception) // Exceção esperada
             };
 
+            //nome vazio
+            yield return new object[]
+            {
+    new Funcionario
+    {
+        Nome = "",
+        Nascimento = faker.Date.Between(DateTime.Now.AddYears(-50), DateTime.Now.AddYears(-21)),
+        Senioridade = Senioridade.Junior,
+        Salario = 4000
+    },
+    typeof(Exception) // Exceção esperada
+            };
+
             // Idade inválida
             yield return new object[]
            {
