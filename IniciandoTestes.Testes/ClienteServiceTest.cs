@@ -40,7 +40,7 @@ namespace IniciandoTestes.Tests
         //    var clienteComNomeVazio = new Cliente
         //    {
         //        Id = Guid.NewGuid(),
-        //        Nome = "", // Nome vazio
+        //        Nome = "", 
         //        Nascimento = new DateTime(1980, 12, 12)
         //    };
 
@@ -60,7 +60,7 @@ namespace IniciandoTestes.Tests
         //    var clienteComNomeNulo = new Cliente
         //    {
         //        Id = Guid.NewGuid(),
-        //        Nome = null, // Nome nulo
+        //        Nome = null, 
         //        Nascimento = new DateTime(1980, 12, 12)
         //    };
 
@@ -82,6 +82,7 @@ namespace IniciandoTestes.Tests
             Assert.Equal("O cliente não pode ser nulo. (Parameter 'cliente')", exception.Message);
         }
 
+        //adicionando cliente válido
         [Fact]
         public void AdicionarCLiente_DeveAdicionarComSucesso_QuandoClienteValido()
         {
@@ -121,7 +122,7 @@ namespace IniciandoTestes.Tests
 
         //}
 
-        //cliente já existe
+        //throw exception cliente já existe
         [Fact]
         public void AddCliente_DeveQuebrar_QuandoClienteJaExiste()
         {
@@ -153,6 +154,9 @@ namespace IniciandoTestes.Tests
             // Act - Assert
             Assert.Throws<ArgumentNullException>(() => sut.AddClliente(null));
         }
+        
+        //nome vazio
+        
         //[Fact]
         //public void AddCliente_DeveLancarExcecao_QuandoClienteSemNome()
         //{
