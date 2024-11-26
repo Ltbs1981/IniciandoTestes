@@ -10,6 +10,78 @@ namespace IniciandoTestes.Tests
 {
     public class ClienteServiceTest
     {
+        //idade menor que 18
+        [Fact]
+        public void AddCliente_DeveLancarExcecao_QuandoIdadeMenorQue18()
+        {
+            // Arrange
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
+            var sut = new ClienteService(clienteRepositoryMock.Object);
+
+            var cliente = new Cliente
+            {
+                Id = Guid.NewGuid(),
+                Nome = "Cliente Menor",
+                Nascimento = DateTime.Now.AddYears(-17) // Menor de 18 anos
+            };
+
+            // Act - Assert
+            Assert.Throws<Exception>(() => sut.AddClliente(cliente));
+        }
+
+        //nome vazio
+        //[Fact]
+        //public void AddCliente_DeveLancarExcecao_QuandoNomeClienteVazio()
+        //{
+        //    // Arrange
+        //    var clienteRepositoryMock = new Mock<IClienteRepository>();
+        //    var sut = new ClienteService(clienteRepositoryMock.Object);
+
+        //    var clienteComNomeVazio = new Cliente
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        Nome = "", // Nome vazio
+        //        Nascimento = new DateTime(1980, 12, 12)
+        //    };
+
+        //    // Act - Assert
+        //    var excecao = Assert.Throws<ArgumentException>(() => sut.AddClliente(clienteComNomeVazio));
+        //    Assert.Equal("O nome do cliente não pode ser vazio ou nulo. (Parameter 'Nome')", excecao.Message);
+        //}
+
+        //nome nulo
+        //[Fact]
+        //public void AddCliente_DeveLancarExcecao_QuandoNomeClienteNulo()
+        //{
+        //    // Arrange
+        //    var clienteRepositoryMock = new Mock<IClienteRepository>();
+        //    var sut = new ClienteService(clienteRepositoryMock.Object);
+
+        //    var clienteComNomeNulo = new Cliente
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        Nome = null, // Nome nulo
+        //        Nascimento = new DateTime(1980, 12, 12)
+        //    };
+
+        //    // Act - Assert
+        //    var excecao = Assert.Throws<ArgumentException>(() => sut.AddClliente(clienteComNomeNulo));
+        //    Assert.Equal("O nome do cliente não pode ser vazio ou nulo. (Parameter 'Nome')", excecao.Message);
+        //}
+
+        //tipo de msn
+        [Fact]
+        public void AddCliente_DeveLancarArgumentNullException_ComMensagemEsperada_QuandoClienteNulo()
+        {
+            // Arrange
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
+            var sut = new ClienteService(clienteRepositoryMock.Object);
+
+            // Act - Assert
+            var exception = Assert.Throws<ArgumentNullException>(() => sut.AddClliente(null));
+            Assert.Equal("O cliente não pode ser nulo. (Parameter 'cliente')", exception.Message);
+        }
+
         [Fact]
         public void AdicionarCLiente_DeveAdicionarComSucesso_QuandoClienteValido()
         {
@@ -49,6 +121,7 @@ namespace IniciandoTestes.Tests
 
         //}
 
+        //cliente já existe
         [Fact]
         public void AddCliente_DeveQuebrar_QuandoClienteJaExiste()
         {
@@ -69,6 +142,7 @@ namespace IniciandoTestes.Tests
             //Act - Assert   // x => x.  -- () => 
             Assert.Throws<Exception>(() => sut.AddClliente(cliente));
         }
+        //cliente nulo
         [Fact]
         public void AddCliente_DeveLancarExcecao_QuandoClienteNulo()
         {
@@ -91,7 +165,7 @@ namespace IniciandoTestes.Tests
         //    var cliente = new Cliente()
         //    {
         //        Id = Guid.NewGuid(),
-        //        Nome = null, // Nome nulo
+        //        Nome = null, 
         //        Nascimento = new DateTime(1980, 12, 12)
         //    };
 
