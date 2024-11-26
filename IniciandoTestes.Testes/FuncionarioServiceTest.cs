@@ -69,7 +69,7 @@ namespace IniciandoTestes.Tests
             };
         }
 
-        //lançando excepitions
+        //testes de exceção
         [Theory]
         [MemberData(nameof(GetFuncionariosInvalidos))]
         public void AdicionarFuncionario_DeveLancarExcecao_QuandoDadosInvalidos(Funcionario funcionario, Type excecaoEsperada)
@@ -85,12 +85,12 @@ namespace IniciandoTestes.Tests
         {
             var faker = new Faker();
 
-                        // Nome inválido (curto)
+                        //nome curto
             yield return new object[]
             {
         new Funcionario
         {
-            Nome = "Jo",
+            Nome = "Lu",
             Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
             Senioridade = Senioridade.Junior,
             Salario = 4000
@@ -103,7 +103,7 @@ namespace IniciandoTestes.Tests
             {
     new Funcionario
     {
-        Nome = null, // Nome nulo
+        Nome = null, 
         Nascimento = faker.Date.Between(DateTime.Now.AddYears(-50), DateTime.Now.AddYears(-21)),
         Senioridade = Senioridade.Junior,
         Salario = 4000
@@ -123,7 +123,8 @@ namespace IniciandoTestes.Tests
         },
         typeof(Exception)
             };
-            // Salário fora do intervalo para cada senioridade
+            // Salário fora do valor para cada senioridade
+            //salário abaixo para Jr
             yield return new object[]
             {
             new Funcionario
@@ -131,11 +132,12 @@ namespace IniciandoTestes.Tests
                 Nome = faker.Name.FullName(),
                 Nascimento = faker.Date.Between(DateTime.Now.AddDays(-21), DateTime.Now.AddDays(-50)),
                 Senioridade = Senioridade.Junior,
-                Salario = faker.Random.Double(0, 3199) // Salário inválido para Junior
+                Salario = faker.Random.Double(0, 3199) 
             },
             typeof(Exception)
             };
 
+           //salário acima para Jr
             yield return new object[]
 {
         new Funcionario
@@ -143,11 +145,12 @@ namespace IniciandoTestes.Tests
             Nome = faker.Name.FullName(),
             Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
             Senioridade = Senioridade.Junior,
-            Salario = faker.Random.Double(5501, 10000) // Acima do limite
+            Salario = faker.Random.Double(5501, 10000) 
         },
         typeof(Exception)
 };
 
+            //salário abaixo para pleno
             yield return new object[]
             {
             new Funcionario
@@ -155,11 +158,12 @@ namespace IniciandoTestes.Tests
                 Nome = faker.Name.FullName(),
                 Nascimento = faker.Date.Between(DateTime.Now.AddDays(-21), DateTime.Now.AddDays(-50)),
                 Senioridade = Senioridade.Pleno,
-                Salario = faker.Random.Double(0, 5499) // Salário inválido para Pleno
+                Salario = faker.Random.Double(0, 5499) 
             },
             typeof(Exception)
             };
 
+            //valor acima para pleno
             yield return new object[]
 {
         new Funcionario
@@ -167,11 +171,12 @@ namespace IniciandoTestes.Tests
             Nome = faker.Name.FullName(),
             Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
             Senioridade = Senioridade.Pleno,
-            Salario = faker.Random.Double(8001, 15000) // Acima do limite
+            Salario = faker.Random.Double(8001, 15000) 
         },
         typeof(Exception)
 };
 
+            //valor abaixo para sênior
             yield return new object[]
             {
             new Funcionario
@@ -179,11 +184,12 @@ namespace IniciandoTestes.Tests
                 Nome = faker.Name.FullName(),
                 Nascimento = faker.Date.Between(DateTime.Now.AddDays(-21), DateTime.Now.AddDays(-50)),
                 Senioridade = Senioridade.Senior,
-                Salario = faker.Random.Double(0, 7999) // Salário inválido para Senior
+                Salario = faker.Random.Double(0, 7999) 
             },
             typeof(Exception)
             };
 
+            //salário acima do limite para sênior
             yield return new object[]
 {
         new Funcionario
@@ -191,7 +197,7 @@ namespace IniciandoTestes.Tests
             Nome = faker.Name.FullName(),
             Nascimento = faker.Date.Past(30, DateTime.Now.AddYears(-21)),
             Senioridade = Senioridade.Senior,
-            Salario = faker.Random.Double(20001, 30000) // Acima do limite
+            Salario = faker.Random.Double(20001, 30000) 
         },
         typeof(Exception)
 };
