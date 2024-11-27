@@ -39,6 +39,26 @@ namespace IniciandoTestes.Tests
         }
 
         [Theory]
+        [InlineData(2, -3, -1)]
+        [InlineData(-1, 80, -1)]
+        [InlineData(-5, 29, -1)]
+        [InlineData(-7, 89, -1)]
+        [InlineData(50, -32, -1)]
+        public void SomarNumeros_DeveRetornarMenosUm_QuandoNumerosNegativos
+                    (double n1, double n2, double expectedResult)
+        {
+            // Arrange
+            Calculadora sut = new Calculadora();
+
+            // Act
+            double result = sut.SomarNumeros(n1, n2);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+
+        }
+
+        [Theory]
         [InlineData(1, 3, 4)]
         [InlineData(5, 10, 15)]
         [InlineData(20, 50, 70)]

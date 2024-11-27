@@ -10,6 +10,8 @@ namespace IniciandoTestes.Tests
 {
     public class ClienteServiceTest
     {
+        
+
         //idade menor que 18
         [Fact]
         public void AddCliente_DeveLancarExcecao_QuandoIdadeMenorQue18()
@@ -29,46 +31,7 @@ namespace IniciandoTestes.Tests
             Assert.Throws<Exception>(() => sut.AddClliente(cliente));
         }
 
-        //nome vazio
-        //[Fact]
-        //public void AddCliente_DeveLancarExcecao_QuandoNomeClienteVazio()
-        //{
-        //    // Arrange
-        //    var clienteRepositoryMock = new Mock<IClienteRepository>();
-        //    var sut = new ClienteService(clienteRepositoryMock.Object);
-
-        //    var clienteComNomeVazio = new Cliente
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Nome = "", 
-        //        Nascimento = new DateTime(1980, 12, 12)
-        //    };
-
-        //    // Act - Assert
-        //    var excecao = Assert.Throws<ArgumentException>(() => sut.AddClliente(clienteComNomeVazio));
-        //    Assert.Equal("O nome do cliente não pode ser vazio ou nulo. (Parameter 'Nome')", excecao.Message);
-        //}
-
-        //nome nulo
-        //[Fact]
-        //public void AddCliente_DeveLancarExcecao_QuandoNomeClienteNulo()
-        //{
-        //    // Arrange
-        //    var clienteRepositoryMock = new Mock<IClienteRepository>();
-        //    var sut = new ClienteService(clienteRepositoryMock.Object);
-
-        //    var clienteComNomeNulo = new Cliente
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Nome = null, 
-        //        Nascimento = new DateTime(1980, 12, 12)
-        //    };
-
-        //    // Act - Assert
-        //    var excecao = Assert.Throws<ArgumentException>(() => sut.AddClliente(clienteComNomeNulo));
-        //    Assert.Equal("O nome do cliente não pode ser vazio ou nulo. (Parameter 'Nome')", excecao.Message);
-        //}
-
+        
         //tipo de msn
         [Fact]
         public void AddCliente_DeveLancarArgumentNullException_ComMensagemEsperada_QuandoClienteNulo()
@@ -109,19 +72,7 @@ namespace IniciandoTestes.Tests
 
         }
 
-        //[Fact]
-        //public void TesteEx()
-        //{
-        //    Mock<IClienteRepository> mock = new Mock<IClienteRepository>();
-        //    ClienteService clienteService = new ClienteService(mock.Object);
-
-        //    var result = clienteService.ExemploString();
-        //    var resultadoEsperado = "Retorno da string";
-        //    Assert.NotNull(result);
-        //    Assert.Equal(resultadoEsperado, result);
-
-        //}
-
+        
         //throw exception cliente já existe
         [Fact]
         public void AddCliente_DeveQuebrar_QuandoClienteJaExiste()
@@ -155,26 +106,6 @@ namespace IniciandoTestes.Tests
             Assert.Throws<ArgumentNullException>(() => sut.AddClliente(null));
         }
         
-        //nome vazio
         
-        //[Fact]
-        //public void AddCliente_DeveLancarExcecao_QuandoClienteSemNome()
-        //{
-        //    // Arrange
-        //    var clienteRepositoryMock = new Mock<IClienteRepository>();
-        //    clienteRepositoryMock.Setup(x => x.GetCliente(It.IsAny<Guid>())).Returns((Cliente)null);
-
-        //    var sut = new ClienteService(clienteRepositoryMock.Object);
-
-        //    var cliente = new Cliente()
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Nome = null, 
-        //        Nascimento = new DateTime(1980, 12, 12)
-        //    };
-
-        //    // Act - Assert
-        //    Assert.Throws<ArgumentNullException>(() => sut.AddClliente(cliente));
-        //}
     }
 }
