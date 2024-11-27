@@ -16,11 +16,7 @@ namespace IniciandoTestes.Servicos
 
         public void AddClliente(Cliente cliente)
         {
-            //if (string.IsNullOrWhiteSpace(cliente.Nome))
-            //{
-            //    throw new ArgumentException("O nome do cliente não pode ser vazio ou nulo.", nameof(cliente.Nome));
-            //}
-
+            
             if (cliente == null)
             {
                 throw new ArgumentNullException(nameof(cliente), "O cliente não pode ser nulo.");

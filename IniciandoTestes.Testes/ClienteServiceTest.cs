@@ -72,27 +72,30 @@ namespace IniciandoTestes.Tests
 
         }
 
-        
+
         //throw exception cliente já existe
         [Fact]
         public void AddCliente_DeveQuebrar_QuandoClienteJaExiste()
         {
-            //Arrange
-            Faker faker = new Faker();
-            Cliente cliente = new Cliente()
+            // Arrange
+            var faker = new Faker();
+            var cliente = new Cliente()
             {
                 Nome = faker.Name.FullName(),
-                Nascimento = new System.DateTime(1900, 12, 12),
+                Nascimento = new DateTime(1900, 12, 12),
                 Id = Guid.NewGuid(),
             };
 
-            Mock<IClienteRepository> clienteRepositoryMock = new Mock<IClienteRepository>();
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
             clienteRepositoryMock.Setup(x => x.GetCliente(It.IsAny<Guid>())).Returns(cliente);
 
-            ClienteService sut = new ClienteService(clienteRepositoryMock.Object);
+            var sut = new ClienteService(clienteRepositoryMock.Object);
 
-            //Act - Assert   // x => x.  -- () => 
-            Assert.Throws<Exception>(() => sut.AddClliente(cliente));
+            // Act - Assert
+            var exception = Assert.Throws<Exception>(() => sut.AddClliente(cliente));
+
+            // Assert
+            Assert.Equal("Cliente já existe no banco de dados.", exception.Message);
         }
         //cliente nulo
         [Fact]
