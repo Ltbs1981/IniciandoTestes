@@ -33,7 +33,7 @@ namespace IniciandoTestes.Tests.MotherObjects
         {
             return new Funcionario
             {
-                Nome = "",
+                Nome = " ",
                 Nascimento = DateTime.Now.AddYears(-30),
                 Senioridade = Senioridade.Junior,
                 Salario = 4000
