@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IniciandoTestes.Entidades;
+using System;
 
 namespace IniciandoTestes.Contratos.Concurso
 {
-    internal interface ICandidaturaRepository
+    public interface ICandidaturaRepository
     {
+        Entidades.Concurso GetConcurso(Guid id);
+
+        int AdicionaCandidato(Candidato candidato);
     }
 }

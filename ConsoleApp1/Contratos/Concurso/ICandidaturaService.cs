@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IniciandoTestes.Entidades;
+using IniciandoTestes.Contratos.Concurso;
 
 namespace IniciandoTestes.Contratos.Concurso
 {
     internal interface ICandidaturaService
     {
+        int CriarCandidatura(Candidato candidato);
     }
 }
