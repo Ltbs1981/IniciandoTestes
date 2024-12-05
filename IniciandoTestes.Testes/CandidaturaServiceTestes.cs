@@ -2,7 +2,8 @@
 using IniciandoTestes.Contratos.Concurso;
 using IniciandoTestes.Entidades;
 using IniciandoTestes.Servicos.ConcursoService;
-using IniciandoTestes.Tests.MotherObjects;
+using IniciandoTestes.Testes.Builders;
+using IniciandoTestes.Tests.Builders;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,8 @@ namespace IniciandoTestes.Tests
         public void CriarCandidatura_DeveRetornarMatricula_QuandoCandidatoValido(Candidato candidato, Concurso concurso)
         {
             // Arrange
-            _mockCandidaturaRepository.Setup(r => r.GetConcurso(candidato.Concurso.Id)).Returns(concurso);
-            _mockCandidaturaRepository.Setup(r => r.AdicionaCandidato(candidato)).Returns(123);
+            _mockCandidaturaRepository.Setup(x => x.GetConcurso(candidato.Concurso.Id)).Returns(concurso);
+            _mockCandidaturaRepository.Setup(x => x.AdicionaCandidato(candidato)).Returns(123);
 
             // Act
             var resultado = _candidaturaService.CriarCandidatura(candidato);
@@ -42,14 +43,20 @@ namespace IniciandoTestes.Tests
         {
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Superior),
-                CandidaturaMotherObject.GetConcursoPorEscolaridade(Escolaridade.Superior)
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Superior).Build(),
+                new ConcursoBuilder().ComEscolaridade(Escolaridade.Superior).Build()
             };
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Medio),
-                CandidaturaMotherObject.GetConcursoPorEscolaridade(Escolaridade.Medio)
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Medio).Build(),
+                new ConcursoBuilder().ComEscolaridade(Escolaridade.Medio).Build()
             };
+            yield return new object[]
+{
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Fundamental).Build(),
+                new ConcursoBuilder().ComEscolaridade(Escolaridade.Fundamental).Build()
+};
+
         }
 
         [Theory]
@@ -59,8 +66,8 @@ namespace IniciandoTestes.Tests
             // Arrange
             if (candidato != null && candidato.Escolaridade != Escolaridade.Superior)
             {
-                var concurso = CandidaturaMotherObject.GetConcursoPorEscolaridade(Escolaridade.Superior);
-                _mockCandidaturaRepository.Setup(r => r.GetConcurso(candidato.Concurso.Id)).Returns(concurso);
+                var concurso = new ConcursoBuilder().ComEscolaridade(Escolaridade.Superior).Build();
+                _mockCandidaturaRepository.Setup(x => x.GetConcurso(candidato.Concurso.Id)).Returns(concurso);
             }
 
             // Act & Assert
@@ -70,15 +77,15 @@ namespace IniciandoTestes.Tests
         public static IEnumerable<object[]> GetCandidatosInvalidos()
         {
             yield return new object[] { null, typeof(ArgumentException) };
-            yield return new object[] { CandidaturaMotherObject.GetCandidatoInvalido(), typeof(ArgumentException) };
+            yield return new object[] { new CandidatoBuilder().ComNascimento(DateTime.Now.AddYears(-20)).Build(), typeof(ArgumentException) };
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Medio),
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Medio).Build(),
                 typeof(Exception)
             };
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Fundamental),
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Fundamental).Build(),
                 typeof(Exception)
             };
         }
@@ -100,8 +107,7 @@ namespace IniciandoTestes.Tests
         public void CandidatoEhValido_DeveRetornarFalso_QuandoIdadeMenorQue21Anos()
         {
             // Arrange
-            var candidato = CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Medio);
-            candidato.Nascimento = DateTime.Now.AddYears(-20);
+            var candidato = new CandidatoBuilder().ComNascimento(DateTime.Now.AddYears(-20)).Build();
 
             // Act
             var resultado = _candidaturaService.CandidatoEhValido(candidato);
@@ -114,7 +120,7 @@ namespace IniciandoTestes.Tests
         public void CandidatoEhValido_DeveRetornarVerdadeiro_QuandoCandidatoEhValido()
         {
             // Arrange
-            var candidato = CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Superior);
+            var candidato = new CandidatoBuilder().Build();
 
             // Act
             var resultado = _candidaturaService.CandidatoEhValido(candidato);
@@ -138,18 +144,18 @@ namespace IniciandoTestes.Tests
         {
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Superior),
-                CandidaturaMotherObject.GetConcursoPorEscolaridade(Escolaridade.Superior)
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Superior).Build(),
+                new ConcursoBuilder().ComEscolaridade(Escolaridade.Superior).Build()
             };
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Medio),
-                CandidaturaMotherObject.GetConcursoPorEscolaridade(Escolaridade.Medio)
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Medio).Build(),
+                new ConcursoBuilder().ComEscolaridade(Escolaridade.Medio).Build()
             };
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Medio),
-                CandidaturaMotherObject.GetConcursoPorEscolaridade(Escolaridade.Fundamental)
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Medio).Build(),
+                new ConcursoBuilder().ComEscolaridade(Escolaridade.Fundamental).Build()
             };
         }
 
@@ -168,8 +174,8 @@ namespace IniciandoTestes.Tests
         {
             yield return new object[]
             {
-                CandidaturaMotherObject.GetCandidatoValidoPorEscolaridade(Escolaridade.Fundamental),
-                CandidaturaMotherObject.GetConcursoPorEscolaridade(Escolaridade.Superior)
+                new CandidatoBuilder().ComEscolaridade(Escolaridade.Fundamental).Build(),
+                new ConcursoBuilder().ComEscolaridade(Escolaridade.Superior).Build()
             };
         }
     }
