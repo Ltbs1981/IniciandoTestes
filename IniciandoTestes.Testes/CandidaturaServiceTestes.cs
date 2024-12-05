@@ -129,8 +129,7 @@ namespace IniciandoTestes.Tests
             Assert.True(resultado);
         }
 
-        [Theory]
-        [MemberData(nameof(GetCandidatosAptosAoConcurso))]
+        [Theory]        [MemberData(nameof(GetCandidatosAptosAoConcurso))]
         public void CandidatoAptoAoConcurso_DeveRetornarVerdadeiro_QuandoCandidatoApto(Candidato candidato, Concurso concurso)
         {
             // Act
